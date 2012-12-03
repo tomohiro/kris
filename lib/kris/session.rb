@@ -9,7 +9,6 @@ module Kris
 
     def start
       @logger.info('Booting Kris...')
-      @logger.info(@robot.username)
 
       Plugin.autoload(@robot) do |plugin|
         @logger.info("#{plugin.class} loaded.")
