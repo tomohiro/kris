@@ -20,7 +20,7 @@ module Kris
 
     def boot
       @robot.on_privmsg do |message|
-        responce(message)
+        response(message)
       end
 
       Thread.start do
