@@ -4,9 +4,13 @@ module Kris
       def autoload(robot)
         Dir.glob(File.expand_path('./plugin/*.rb')).each do |file|
           require file
-          klass = eval(File.basename(file, '.rb').capitalize).new(robot)
+          klass = eval(filename_classify(File.basename(file, '.rb'))).new(robot)
           yield klass
         end
+      end
+
+      def filename_classify(filename)
+        filename.split('_').map(&:capitalize).join
       end
     end
 
