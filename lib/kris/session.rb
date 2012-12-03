@@ -1,4 +1,5 @@
 require 'zircon'
+require 'kris/zircon/message'
 
 module Kris
   class Session
