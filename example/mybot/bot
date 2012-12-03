@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'kris'
+
+bot = Kris::Session.new(
+  :server   => 'irc.freenode.net',
+  :port     => 6667,
+  :channel  => '#MyChannel',
+  :username => 'ExampleBot',
+  :nickname => 'ExampleBot',
+  :realname => 'ExampleBot'
+)
+
+bot.start
