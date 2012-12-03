@@ -1,5 +1,5 @@
 class SimpleReply < Kris::Plugin
-  def responce(message)
+  def response(message)
     case message.body.downcase
     when /hello/
       reply(message.to, message.from, 'Hello!')

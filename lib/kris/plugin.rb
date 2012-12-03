@@ -34,7 +34,7 @@ module Kris
     protected
       # do nothing.
       # override this method.
-      def responce(message); end
+      def response(message); end
 
       # do nothing.
       # override this method.
