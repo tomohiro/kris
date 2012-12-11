@@ -26,7 +26,6 @@ Getting started
 
     my-bot-project
         |-- Gemfile
-        |-- Procfile
         |-- MyBot
         `-- plugin
             |-- reply.rb
@@ -35,14 +34,21 @@ Getting started
 
 ### Install the kris
 
-RubyGems.org
+#### RubyGems.org
 
 Coming soon...
 
 
-Gemfile
+#### Bundler
+
+Edit a `Gemfile`
 
     gem 'kris', :git => 'git://github.com/Tomohiro/kris.git'
+
+
+Install
+
+    $ bundle install --path vendor/bundle
 
 
 ### Bootstrap Bot
