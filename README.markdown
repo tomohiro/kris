@@ -82,7 +82,7 @@ end
 
 Notification
 
-```Crawler
+```ruby
 class Crawler < Kris::Plugin
   def notify
     crawl_datas do |new_data|
