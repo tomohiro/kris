@@ -45,7 +45,7 @@ Gemfile
     gem 'kris', :git => 'git://github.com/Tomohiro/kris.git'
 
 
-### Bootstarp Bot
+### Bootstrap Bot
 
     $ vi my-bot-project/MyBot
 
