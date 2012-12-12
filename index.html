@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Kris by Tomohiro</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Kris</h1>
+          <h2>Kris is a Ruby IRC bot library - Pluggable, and very simple.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Tomohiro/kris/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Tomohiro/kris/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Tomohiro/kris" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <p><a href="https://gemnasium.com/Tomohiro/kris"><img src="https://gemnasium.com/Tomohiro/kris.png" alt="Dependency Status"></a>
+<a href="https://codeclimate.com/github/Tomohiro/kris"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a>
+<a href="http://coderwall.com/tomohiro"><img src="http://api.coderwall.com/tomohiro/endorsecount.png" alt="endorse"></a></p>
+
+<hr><h2>Requirements</h2>
+
+<ul>
+<li>Ruby 1.9.3 or lator</li>
+<li>Zircon</li>
+</ul><h2>Getting started</h2>
+
+<h3>Bot project structure</h3>
+
+<pre><code>my-bot-project
+    |-- Gemfile
+    |-- MyBot
+    `-- plugin
+        |-- reply.rb
+        `-- crawler.rb
+</code></pre>
+
+<h3>Install the kris</h3>
+
+<h4>RubyGems.org</h4>
+
+<p>Coming soon...</p>
+
+<h4>Bundler</h4>
+
+<p>Edit a <code>Gemfile</code></p>
+
+<pre><code>gem 'kris', :git =&gt; 'git://github.com/Tomohiro/kris.git'
+</code></pre>
+
+<p>Install</p>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<h3>Bootstrap Bot</h3>
+
+<pre><code>$ vi my-bot-project/MyBot
+</code></pre>
+
+<div class="highlight"><pre><span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">require</span> <span class="s1">'kris'</span>
+
+<span class="no">Kris</span><span class="o">::</span><span class="no">Session</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+  <span class="ss">:server</span>   <span class="o">=&gt;</span> <span class="s1">'chat.freenode.net'</span><span class="p">,</span>
+  <span class="ss">:port</span>     <span class="o">=&gt;</span> <span class="mi">6667</span><span class="p">,</span>
+  <span class="ss">:channel</span>  <span class="o">=&gt;</span> <span class="s1">'#my-bot-channel'</span><span class="p">,</span>
+  <span class="ss">:nickname</span> <span class="o">=&gt;</span> <span class="s1">'MyBot'</span><span class="p">,</span>
+  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="s1">'MyBot'</span><span class="p">,</span>
+  <span class="ss">:realname</span> <span class="o">=&gt;</span> <span class="s1">'MyBot'</span>
+<span class="p">)</span><span class="o">.</span><span class="n">start</span>
+</pre></div>
+
+<h3>Plugin example</h3>
+
+<p>Response</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Reply</span> <span class="o">&lt;</span> <span class="no">Kris</span><span class="o">::</span><span class="no">Plugin</span>
+  <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">downcase</span>
+    <span class="k">when</span> <span class="sr">/hello/</span>
+      <span class="n">reply</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">to</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">from</span><span class="p">,</span> <span class="s1">'Hello!'</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Notification</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Crawler</span> <span class="o">&lt;</span> <span class="no">Kris</span><span class="o">::</span><span class="no">Plugin</span>
+  <span class="k">def</span> <span class="nf">notify</span>
+    <span class="n">crawl_datas</span> <span class="k">do</span> <span class="o">|</span><span class="n">new_data</span><span class="o">|</span>
+      <span class="n">notice</span><span class="p">(</span><span class="s1">'#notify-channel'</span><span class="p">,</span> <span class="n">new_data</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+    <span class="k">def</span> <span class="nf">crawl_datas</span>
+      <span class="c1"># do something</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Run</h3>
+
+<pre><code>$ bundle exec ruby MyBot
+</code></pre>
+
+<h2>LICENSE</h2>
+
+<p>© 2012 Tomohiro, TAIRA.
+This project is licensed under the MIT license.
+See LICENSE for details.</p>
+        </section>
+
+        <footer>
+          Kris is maintained by <a href="https://github.com/Tomohiro">Tomohiro</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
