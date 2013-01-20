@@ -114,6 +114,6 @@ end
 LICENSE
 --------------------------------------------------------------------------------
 
-&copy; 2012 Tomohiro, TAIRA.
+&copy; 2012 - 2013 Tomohiro TAIRA.
 This project is licensed under the MIT license.
 See LICENSE for details.
