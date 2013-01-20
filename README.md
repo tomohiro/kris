@@ -61,12 +61,12 @@ Install
 require 'kris'
 
 Kris::Session.new(
-  :server   => 'chat.freenode.net',
-  :port     => 6667,
-  :channel  => '#my-bot-channel',
-  :nickname => 'MyBot',
-  :username => 'MyBot',
-  :realname => 'MyBot'
+  server:   'chat.freenode.net',
+  port:     6667,
+  channel:  '#my-bot-channel',
+  nickname: 'MyBot',
+  username: 'MyBot',
+  realname: 'MyBot'
 ).start
 ```
 
