@@ -3,6 +3,7 @@ Kris
 
 IRC bot library - Pluggable, and very simple
 
+[![Gem Version](https://badge.fury.io/rb/kris.png)](http://badge.fury.io/rb/kris)
 [![Dependency Status](https://gemnasium.com/Tomohiro/kris.png)](https://gemnasium.com/Tomohiro/kris)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/Tomohiro/kris)
 [![endorse](http://api.coderwall.com/tomohiro/endorsecount.png)](http://coderwall.com/tomohiro)
@@ -22,21 +23,11 @@ Getting started
 --------------------------------------------------------------------------------
 
 
-### Bot project structure
-
-    my-bot-project
-        |-- Gemfile
-        |-- MyBot
-        `-- plugin
-            |-- reply.rb
-            `-- crawler.rb
-
-
 ### Install the kris
 
 #### RubyGems.org
 
-Coming soon...
+    gem install kris
 
 
 #### Bundler
@@ -51,7 +42,17 @@ Install
     $ bundle install --path vendor/bundle
 
 
-### Bootstrap Bot
+### Bot project directory structure
+
+    my-bot-project
+        |-- Gemfile
+        |-- MyBot
+        `-- plugin
+            |-- reply.rb
+            `-- crawler.rb
+
+
+#### Bootstrap Bot
 
     $ vi my-bot-project/MyBot
 
