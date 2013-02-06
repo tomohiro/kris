@@ -1,7 +1,8 @@
-require 'kris/version'
+require 'rubygems'
 require 'logger'
 
 module Kris
-  autoload :Session, 'kris/session'
-  autoload :Plugin,  'kris/plugin'
+  require 'kris/version'
+  require 'kris/session'
+  require 'kris/plugin'
 end
