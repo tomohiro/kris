@@ -70,6 +70,10 @@ Kris::Session.new(
 ).start
 ```
 
+If you want join to multipull channels, setting below.
+
+Use `channels: %w(#foo #bar #baz)` instead of  `channel:  '#my-bot-channel'`
+
 
 ### Plugin example
 

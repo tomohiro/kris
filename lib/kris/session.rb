@@ -2,25 +2,38 @@ require 'zircon'
 require 'kris/zircon/message'
 
 module Kris
-  class Session
+  class Session < Zircon
     def initialize(config)
-      @logger = Logger.new(STDOUT)
-      @robot  = Zircon.new(config)
+      @logger   = Logger.new(STDOUT)
+      @channels = config.fetch(:channels, nil)
+      super(config)
+    end
+
+    def run!
+      login
+      join_to_channels(@channels) if @channels
+      wait_message
     end
 
     def start
       @logger.info('Booting Kris...')
 
-      Plugin.autoload(@robot) do |plugin|
+      Plugin.autoload(self) do |plugin|
         @logger.info("#{plugin.class} loaded.")
         plugin.boot
       end
 
-      @robot.run!
+      run!
     rescue => e
       @logger.error(e)
     ensure
-      @robot.part
+      part
+    end
+
+    def join_to_channels(channels)
+      channels.each do |channel|
+        join(channel)
+      end
     end
   end
 end
