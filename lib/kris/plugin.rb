@@ -69,7 +69,7 @@ module Kris
     protected
       # Call response method is for backwords compatibility
       def on_privmsg(message)
-        response(message)
+        response(message) if self.class.method_defined?(:response)
       end
 
       # Override this method if you want get scheduled notification.
