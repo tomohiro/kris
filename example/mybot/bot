@@ -6,6 +6,7 @@ bot = Kris::Session.new(
   :server   => 'irc.freenode.net',
   :port     => 6667,
   :channel  => '#MyChannel',
+# :channels => %w(#channel_1 #channel_2 #channel3)   #  If you want join multiple channels.
   :username => 'ExampleBot',
   :nickname => 'ExampleBot',
   :realname => 'ExampleBot'

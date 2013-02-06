@@ -1,5 +1,5 @@
 class Reply < Kris::Plugin
-  def response(message)
+  def on_privmsg(message)
     case message.body.downcase
     when /hello/
       reply(message.to, message.from, 'Hello!')
