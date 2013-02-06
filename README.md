@@ -78,16 +78,20 @@ Response
 
 ```ruby
 class Reply < Kris::Plugin
-  def response(message)
+  def on_privmsg(message)
     case message.body.downcase
     when /hello/
       reply(message.to, message.from, 'Hello!')
     end
   end
+
+  def on_topic(message)
+    notice(message.to, "Now topic is #{message.body}")
+  end
 end
 ```
 
-Notification
+Scheduled Notification
 
 ```ruby
 class Crawler < Kris::Plugin
@@ -99,6 +103,7 @@ class Crawler < Kris::Plugin
 
   private
     def crawl_datas
+      sleep 60
       # do something
     end
 end

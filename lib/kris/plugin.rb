@@ -14,30 +14,65 @@ module Kris
       end
     end
 
+    COMMAND_NAMES = %w(
+      ADMIN
+      AWAY
+      CREDITS
+      CYCLE
+      DALINFO
+      INVITE
+      ISON
+      JOIN
+      KICK
+      KNOCK
+      LICENSE
+      LINKS
+      LIST
+      LUSERS
+      MAP
+      MODE
+      MOTD
+      NAMES
+      NICK
+      NOTICE
+      PART
+      PASS
+      PING
+      PONG
+      PRIVMSG
+      QUIT
+      RULES
+      SETNAME
+      SILENCE
+      STATS
+      TIME
+      TOPIC
+      USER
+      USERHOST
+      VERSION
+      VHOST
+      WATCH
+      WHO
+      WHOIS
+      WHOWAS
+    ).freeze
+
     def initialize(robot)
       @robot = robot
     end
 
     def boot
-      @robot.on_privmsg do |message|
-        response(message)
-      end
-
-      Thread.start do
-        loop do
-          notify
-          sleep 1
-        end
-      end
+      load_callbacks
+      start_notification_scheduler
     end
 
     protected
-      # do nothing.
-      # override this method.
-      def response(message); end
+      # Call response method is for backwords compatibility
+      def on_privmsg(message)
+        response(message)
+      end
 
-      # do nothing.
-      # override this method.
+      # Override this method if you want get scheduled notification.
       def notify; end
 
       def notice(channel, message)
@@ -49,7 +84,29 @@ module Kris
       end
 
       def reply(channel, reply_to, message)
-        privmsg(channel, "#{reply_to}: #{message}")
+        @robot.privmsg(channel, ":#{reply_to}: #{message}")
+      end
+
+    private
+      def load_callbacks
+        COMMAND_NAMES.each do |name|
+          method_name = "on_#{name.downcase}"
+          next unless self.class.method_defined?(method_name)
+
+          @robot.send(method_name) do |message|
+            send(method_name, message)
+          end
+        end
+      end
+
+      def start_notification_scheduler
+        return unless self.class.public_method_defined?(:notify)
+        Thread.start do
+          loop do
+            notify
+            sleep 1
+          end
+        end
       end
   end
 end
