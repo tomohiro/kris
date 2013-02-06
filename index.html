@@ -31,33 +31,23 @@
         <hr>
 
         <section id="main_content">
-          <p><a href="https://gemnasium.com/Tomohiro/kris"><img src="https://gemnasium.com/Tomohiro/kris.png" alt="Dependency Status"></a>
-<a href="https://codeclimate.com/github/Tomohiro/kris"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a>
-<a href="http://coderwall.com/tomohiro"><img src="http://api.coderwall.com/tomohiro/endorsecount.png" alt="endorse"></a>
-<script async class="speakerdeck-embed" data-id="ecdf58801f96013041ed22000a9d04af" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script></p>
+          <p><a href="http://badge.fury.io/rb/kris"><img src="https://badge.fury.io/rb/kris.png" alt="Gem Version"></a>
+<a href="https://gemnasium.com/Tomohiro/kris"><img src="https://gemnasium.com/Tomohiro/kris.png" alt="Dependency Status"></a>
+<a href="http://stillmaintained.com/Tomohiro/kris"><img src="http://stillmaintained.com/Tomohiro/kris.png" alt="Stillmaintained"></a>
+<a href="https://codeclimate.com/github/Tomohiro/kris"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a></p>
 
 <hr><h2>Requirements</h2>
 
 <ul>
 <li>Ruby 1.9.3 or lator</li>
-<li>Zircon</li>
 </ul><h2>Getting started</h2>
-
-<h3>Bot project structure</h3>
-
-<pre><code>my-bot-project
-    |-- Gemfile
-    |-- MyBot
-    `-- plugin
-        |-- reply.rb
-        `-- crawler.rb
-</code></pre>
 
 <h3>Install the kris</h3>
 
 <h4>RubyGems.org</h4>
 
-<p>Coming soon...</p>
+<pre><code>gem install kris
+</code></pre>
 
 <h4>Bundler</h4>
 
@@ -71,7 +61,17 @@
 <pre><code>$ bundle install --path vendor/bundle
 </code></pre>
 
-<h3>Bootstrap Bot</h3>
+<h3>Bot project directory structure</h3>
+
+<pre><code>my-bot-project
+    |-- Gemfile
+    |-- MyBot
+    `-- plugin
+        |-- reply.rb
+        `-- crawler.rb
+</code></pre>
+
+<h4>Bootstrap Bot</h4>
 
 <pre><code>$ vi my-bot-project/MyBot
 </code></pre>
@@ -81,30 +81,38 @@
 <span class="nb">require</span> <span class="s1">'kris'</span>
 
 <span class="no">Kris</span><span class="o">::</span><span class="no">Session</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-  <span class="ss">:server</span>   <span class="o">=&gt;</span> <span class="s1">'chat.freenode.net'</span><span class="p">,</span>
-  <span class="ss">:port</span>     <span class="o">=&gt;</span> <span class="mi">6667</span><span class="p">,</span>
-  <span class="ss">:channel</span>  <span class="o">=&gt;</span> <span class="s1">'#my-bot-channel'</span><span class="p">,</span>
-  <span class="ss">:nickname</span> <span class="o">=&gt;</span> <span class="s1">'MyBot'</span><span class="p">,</span>
-  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="s1">'MyBot'</span><span class="p">,</span>
-  <span class="ss">:realname</span> <span class="o">=&gt;</span> <span class="s1">'MyBot'</span>
+  <span class="n">server</span><span class="p">:</span>   <span class="s1">'chat.freenode.net'</span><span class="p">,</span>
+  <span class="n">port</span><span class="p">:</span>     <span class="mi">6667</span><span class="p">,</span>
+  <span class="n">channel</span><span class="p">:</span>  <span class="s1">'#my-bot-channel'</span><span class="p">,</span>
+  <span class="n">nickname</span><span class="p">:</span> <span class="s1">'MyBot'</span><span class="p">,</span>
+  <span class="n">username</span><span class="p">:</span> <span class="s1">'MyBot'</span><span class="p">,</span>
+  <span class="n">realname</span><span class="p">:</span> <span class="s1">'MyBot'</span>
 <span class="p">)</span><span class="o">.</span><span class="n">start</span>
 </pre></div>
+
+<p>If you want join to multipull channels, setting below.</p>
+
+<p>Use <code>channels: %w(#foo #bar #baz)</code> instead of  <code>channel:  '#my-bot-channel'</code></p>
 
 <h3>Plugin example</h3>
 
 <p>Response</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Reply</span> <span class="o">&lt;</span> <span class="no">Kris</span><span class="o">::</span><span class="no">Plugin</span>
-  <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">on_privmsg</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
     <span class="k">case</span> <span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">downcase</span>
     <span class="k">when</span> <span class="sr">/hello/</span>
       <span class="n">reply</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">to</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">from</span><span class="p">,</span> <span class="s1">'Hello!'</span><span class="p">)</span>
     <span class="k">end</span>
   <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">on_topic</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="n">notice</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">to</span><span class="p">,</span> <span class="s2">"Now topic is </span><span class="si">#{</span><span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
 <span class="k">end</span>
 </pre></div>
 
-<p>Notification</p>
+<p>Scheduled Notification</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Crawler</span> <span class="o">&lt;</span> <span class="no">Kris</span><span class="o">::</span><span class="no">Plugin</span>
   <span class="k">def</span> <span class="nf">notify</span>
@@ -115,6 +123,7 @@
 
   <span class="kp">private</span>
     <span class="k">def</span> <span class="nf">crawl_datas</span>
+      <span class="nb">sleep</span> <span class="mi">60</span>
       <span class="c1"># do something</span>
     <span class="k">end</span>
 <span class="k">end</span>
@@ -127,7 +136,7 @@
 
 <h2>LICENSE</h2>
 
-<p>© 2012 Tomohiro, TAIRA.
+<p>© 2012 - 2013 Tomohiro TAIRA.
 This project is licensed under the MIT license.
 See LICENSE for details.</p>
         </section>
