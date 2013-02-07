@@ -1,61 +1,23 @@
 module Kris
   class Plugin
     class << self
-      def autoload(robot)
-        Dir.glob(File.expand_path('./plugin/*.rb')).each do |file|
+      def autoload(plugin_path = nil)
+        return unless plugin_path
+
+        plugin_files(plugin_path).each do |file|
           require file
-          klass = eval(filename_classify(File.basename(file, '.rb'))).new(robot)
-          yield klass
+          yield eval(filename_classify(File.basename(file, '.rb')))
         end
       end
 
       def filename_classify(filename)
         filename.split('_').map(&:capitalize).join
       end
-    end
 
-    COMMAND_NAMES = %w(
-      ADMIN
-      AWAY
-      CREDITS
-      CYCLE
-      DALINFO
-      INVITE
-      ISON
-      JOIN
-      KICK
-      KNOCK
-      LICENSE
-      LINKS
-      LIST
-      LUSERS
-      MAP
-      MODE
-      MOTD
-      NAMES
-      NICK
-      NOTICE
-      PART
-      PASS
-      PING
-      PONG
-      PRIVMSG
-      QUIT
-      RULES
-      SETNAME
-      SILENCE
-      STATS
-      TIME
-      TOPIC
-      USER
-      USERHOST
-      VERSION
-      VHOST
-      WATCH
-      WHO
-      WHOIS
-      WHOWAS
-    ).freeze
+      def plugin_files(plugins_path)
+        Dir[File.join(File.expand_path(plugins_path), '*.rb')]
+      end
+    end
 
     def initialize(robot)
       @robot = robot
@@ -69,7 +31,7 @@ module Kris
     protected
       # Call response method is for backwords compatibility
       def on_privmsg(message)
-        response(message) if self.class.method_defined?(:response)
+        response(message) if respond_to?(:response)
       end
 
       # Override this method if you want get scheduled notification.
@@ -89,9 +51,9 @@ module Kris
 
     private
       def load_callbacks
-        COMMAND_NAMES.each do |name|
-          method_name = "on_#{name.downcase}"
-          next unless self.class.method_defined?(method_name)
+        Zircon::COMMAND_NAMES.each do |command|
+          method_name = "on_#{command.downcase}"
+          next unless respond_to?(method_name)
 
           @robot.send(method_name) do |message|
             send(method_name, message)
@@ -100,7 +62,7 @@ module Kris
       end
 
       def start_notification_scheduler
-        return unless self.class.public_method_defined?(:notify)
+        return unless respond_to?(:notify)
         Thread.start do
           loop do
             notify
