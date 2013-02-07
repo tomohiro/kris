@@ -14,8 +14,8 @@ module Kris
         filename.split('_').map(&:capitalize).join
       end
 
-      def plugin_files(plugins_path)
-        Dir[File.join(File.expand_path(plugins_path), '*.rb')]
+      def plugin_files(plugin_path)
+        Dir[File.join(File.expand_path(plugin_path), '*.rb')]
       end
     end
 
