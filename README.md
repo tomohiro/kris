@@ -48,7 +48,7 @@ Install
         |-- MyBot
         `-- plugin
             |-- reply.rb
-            `-- crawler.rb
+            `-- hello.rb
 
 
 #### Bootstrap Bot
@@ -66,13 +66,12 @@ Kris::Session.new(
   channel:  '#my-bot-channel',
   nickname: 'MyBot',
   username: 'MyBot',
-  realname: 'MyBot'
+  realname: 'MyBot',
+  # Optional settings is below (Not Required)
+  channels: %(#foo #bar #baz),  # If you want to join another channels with additional
+  plugin_path: '/home/kris/my-bot-plugins'  # If you want to specify a defferent path
 ).start
 ```
-
-If you want join to multipull channels, setting below.
-
-Use `channels: %w(#foo #bar #baz)` instead of  `channel:  '#my-bot-channel'`
 
 
 ### Plugin example
@@ -94,21 +93,14 @@ class Reply < Kris::Plugin
 end
 ```
 
-Scheduled Notification
+Scheduled notification
 
 ```ruby
-class Crawler < Kris::Plugin
+class Hello < Kris::Plugin
   def notify
-    crawl_datas do |new_data|
-      notice('#notify-channel', new_data)
-    end
+    sleep 300
+    notice('#notify-channel', 'Hello')
   end
-
-  private
-    def crawl_datas
-      sleep 60
-      # do something
-    end
 end
 ```
 
