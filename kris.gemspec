@@ -6,10 +6,10 @@ require 'kris/version'
 Gem::Specification.new do |gem|
   gem.name          = 'kris'
   gem.version       = Kris::VERSION
-  gem.authors       = ['Tomohiro, TAIRA']
+  gem.authors       = ['Tomohiro TAIRA']
   gem.email         = ['tomohiro.t@gmail.com']
-  gem.description   = 'IRC bot'
-  gem.summary       = 'IRC bot'
+  gem.description   = 'IRC bot library - Pluggable, and very simple'
+  gem.summary       = 'IRC bot library - Pluggable, and very simple'
   gem.homepage      = 'https://github.com/Tomohiro/kris'
 
   gem.files         = `git ls-files`.split($/)
