@@ -6,12 +6,12 @@ module Kris
 
         plugin_files(plugin_path).each do |file|
           require file
-          yield eval(filename_classify(File.basename(file, '.rb')))
+          yield eval(filename_classify(file))
         end
       end
 
-      def filename_classify(filename)
-        filename.split('_').map(&:capitalize).join
+      def filename_classify(file)
+        File.basename(file, '.rb').split('_').map(&:capitalize).join
       end
 
       def plugin_files(plugin_path)
