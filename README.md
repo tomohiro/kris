@@ -1,12 +1,12 @@
-Kris
+Kris [![Stillmaintained](http://stillmaintained.com/Tomohiro/kris.png)](http://stillmaintained.com/Tomohiro/kris)
 ================================================================================
 
 IRC bot library - Pluggable, and very simple
 
 [![Gem Version](https://badge.fury.io/rb/kris.png)](http://badge.fury.io/rb/kris)
 [![Dependency Status](https://gemnasium.com/Tomohiro/kris.png)](https://gemnasium.com/Tomohiro/kris)
-[![Stillmaintained](http://stillmaintained.com/Tomohiro/kris.png)](http://stillmaintained.com/Tomohiro/kris)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/Tomohiro/kris)
+[![Build Status](https://travis-ci.org/Tomohiro/kris.png?branch=master)](https://travis-ci.org/Tomohiro/kris)
+[![Code Climate](https://codeclimate.com/github/Tomohiro/kris.png)](https://codeclimate.com/github/Tomohiro/kris)
 
 
 ---
@@ -15,7 +15,7 @@ IRC bot library - Pluggable, and very simple
 Requirements
 --------------------------------------------------------------------------------
 
-- Ruby 1.9.3 or lator
+- Ruby 1.9.3, 2.0.0
 
 
 Getting started
@@ -108,7 +108,6 @@ end
 ### Run
 
     $ bundle exec ruby MyBot
-
 
 
 
