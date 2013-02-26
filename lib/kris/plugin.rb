@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 module Kris
   class Plugin
     class << self
@@ -6,12 +8,12 @@ module Kris
 
         plugin_files(plugin_path).each do |file|
           require file
-          yield eval(filename_classify(file))
+          yield const_get(filename_classify(file))
         end
       end
 
       def filename_classify(file)
-        File.basename(file, '.rb').split('_').map(&:capitalize).join
+        File.basename(file, '.rb').camelize
       end
 
       def plugin_files(plugin_path)
