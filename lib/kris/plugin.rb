@@ -51,6 +51,10 @@ module Kris
         @robot.privmsg(channel, ":#{reply_to}: #{message}")
       end
 
+      def logger(level, message)
+        @robot.logger.send(level, message)
+      end
+
     private
       def load_callbacks
         Zircon::COMMAND_NAMES.each do |command|
