@@ -3,6 +3,9 @@ require 'kris/zircon/message'
 
 module Kris
   class Session < Zircon
+
+    attr_reader :logger
+
     def initialize(config)
       @logger      = Logger.new(STDOUT)
       @channels    = config.fetch(:channels, nil)
