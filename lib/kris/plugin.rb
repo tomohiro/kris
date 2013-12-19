@@ -51,8 +51,8 @@ module Kris
         @robot.privmsg(channel, ":#{reply_to}: #{message}")
       end
 
-      def logger(level, message)
-        @robot.logger.send(level, message)
+      def logger
+        @robot.logger
       end
 
     private
